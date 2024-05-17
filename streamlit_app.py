@@ -1,9 +1,11 @@
 import streamlit as st
-import requests
+import httpx
 import json
 
+# 创建Web应用的标题
 st.title('One-Year Mortality Prediction')
 
+# 创建输入表单
 with st.form("prediction_form"):
     wbc = st.number_input('WBC (10^9/L)', value=10.0)
     age = st.number_input('Age', value=50)
@@ -13,9 +15,13 @@ with st.form("prediction_form"):
     beta_blocker = st.selectbox('β-receptor Blocker', options=[0, 1], format_func=lambda x: 'Yes' if x == 1 else 'No')
     surgery = st.selectbox('Surgery Therapy', options=[0, 1], format_func=lambda x: 'Yes' if x == 1 else 'No')
     sbp = st.number_input('SBP(mmHg)', value=120)
+
+    # 提交按钮
     submit_button = st.form_submit_button("Predict")
 
+# 当用户提交表单时
 if submit_button:
+    # 构建请求数据
     data = {
         "WBC (10^9/L)": wbc,
         "age": age,
@@ -24,10 +30,16 @@ if submit_button:
         "Eos": eos,
         "β-receptor blocker(1yes，0no)": beta_blocker,
         "surgery therapy(1yes,0no)": surgery,
-        "SBP(mmHg)": sbb
+        "SBP(mmHg)": sbp
     }
 
-    # 更新这里的 URL 为你的 Vercel 应用的 URL
-    response = requests.post('https://your-vercel-url.com/predict', json=data)
-    prediction = response.json()
+    # 发送请求到Flask API
+    async def send_request(data):
+        async with httpx.AsyncClient() as client:
+            response = await client.post('http://127.0.0.1:5000/predict', json=data)
+            return response.json()
+
+    prediction = send_request(data)
+
+    # 显示预测结果
     st.write(f'Prediction: {prediction["prediction"]}')
