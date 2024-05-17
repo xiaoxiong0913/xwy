@@ -5,10 +5,18 @@ from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
 
+<<<<<<< HEAD
 # 加载模型和标准化器
 model_path = r'C:\Users\14701\Desktop\treebag_model.pkl'
 scaler_path = r'C:\Users\14701\Desktop\scaler.pkl'
 
+=======
+# 指定模型和标准化器的路径
+model_path = r'C:\Users\14701\Desktop\treebag_model.pkl'
+scaler_path = r'C:\Users\14701\Desktop\scaler.pkl'
+
+# 加载模型和标准化器
+>>>>>>> 6b0ef98ec65f5f68e0fdd6ba5c636d72f429bbe1
 model = pickle.load(open(model_path, 'rb'))
 scaler = pickle.load(open(scaler_path, 'rb'))
 
@@ -17,6 +25,7 @@ def predict():
     try:
         # 从POST请求获取JSON数据
         input_data = request.get_json()
+<<<<<<< HEAD
 
         # 打印接收到的数据
         print("Received input data:", input_data)
@@ -61,3 +70,19 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+=======
+        # 将JSON数据转换为DataFrame
+        data_df = pd.DataFrame([input_data])
+        # 应用标准化
+        data_scaled = scaler.transform(data_df)
+        # 进行预测
+        prediction = model.predict_proba(data_scaled)[:, 1]  # 获取类别为1的预测概率
+        # 返回预测结果
+        return jsonify({'prediction': prediction[0]})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+>>>>>>> 6b0ef98ec65f5f68e0fdd6ba5c636d72f429bbe1

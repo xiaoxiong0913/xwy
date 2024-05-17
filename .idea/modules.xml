@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/WEB.iml" filepath="$PROJECT_DIR$/.idea/WEB.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/A型主动脉夹层预测一年死亡率WEB.iml" filepath="$PROJECT_DIR$/.idea/A型主动脉夹层预测一年死亡率WEB.iml" />
+>>>>>>> 6b0ef98ec65f5f68e0fdd6ba5c636d72f429bbe1
     </modules>
   </component>
 </project>
