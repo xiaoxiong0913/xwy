@@ -5,9 +5,13 @@ from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
 
+# 指定模型和标准化器的路径
+model_path = r'C:\Users\14701\Desktop\treebag_model.pkl'
+scaler_path = r'C:\Users\14701\Desktop\scaler.pkl'
+
 # 加载模型和标准化器
-model = pickle.load(open('treebag_model.pkl', 'rb'))
-scaler = pickle.load(open('scaler.pkl', 'rb'))
+model = pickle.load(open(model_path, 'rb'))
+scaler = pickle.load(open(scaler_path, 'rb'))
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -27,3 +31,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
